@@ -30,5 +30,15 @@ The third part shows the implementation and focuses on applied nuances. It is al
 * Part 3: [Practice](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb)
  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb)
  
+ ## Local installation
+ 
+ If you are running part 3 locally, it's better to install the libraries using the  ```requirements.txt``` file. It can be done with the followif line:
+ 
+ ```sh
+pip install -r requirements.txt
+```
+
+After this restart the jupyter runtime and beging exploring.
+
  
 
