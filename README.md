@@ -1,7 +1,3 @@
-## Disclaimer
-
-The tutorial is under constraction, please wait for a couple of days before using it!
-
 ## Introduction
 
 Hello everyone!
@@ -22,14 +18,17 @@ This tutorial covers a very simple setting this technique is applicable to -- th
 
 The first part is a method overview -- here we state the problems, refresh some general DL concepts and see how IIC approach is organized. If you are willing to cover this topic in depth or see the applications to other problems, i.e. unsupervised segmentation, it's highly recommended to read the [original paper](https://arxiv.org/abs/1807.06653) or to visit [official repo](https://github.com/xu-ji/IIC).
 
-The second part describes a notion of mutual information and show, how can it be estimated in IIC method.
+The second part describes a notion of mutual information and show, how can it be estimated in IIC method. To enable TeX fourmals it's written in jupyter notbook. You can open it both through github or through Colab, but the latter one is better in rendering TeX .
 
-The third part shows the implementation and focuses on applied nuances. It is made in form of a Jupiter notebook, so you can run it in colab and try IIC yourself.
+The third part shows the implementation and focuses on applied nuances. It is also made in Jupiter, so you can run it in colab or locally and try IIC yourself.
 
-### Contents:
+## Contents:
 
 * Part 1: [Method overview](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_1.md)
 * Part 2: [IIC loss function](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)
  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)
 * Part 3: [Practice](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb)
  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb)
+ 
+ 
+
