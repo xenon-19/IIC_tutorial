@@ -26,5 +26,6 @@ The third part shows the implementation and focuses on applied nuances. It is ma
 
 * Part 1: [Method overview](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_1.md)
 * Part 2: [IIC loss function](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)
+ [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)
 * Part 3: [Practice](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb)
-*  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb)
+ [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb)
