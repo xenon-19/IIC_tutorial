@@ -10,6 +10,7 @@ The clustering problem suggests that the initial data have no labels. A clusteri
 
  <center><img src="https://github.com/vandedok/IIC_tutorial/releases/download/v0.1/clustering.png" width=600px /></center>
  <center>Figure 1: Image clustering </center>
+ <br></br>
 
 There are many clustering algorithms like K-means or DBSCAN, which are great for structured data -- tables.  However they are not really useful for unstructured data, like images or time series. To perform clustering on such kind of data more advanced methods are required.
 
@@ -30,8 +31,9 @@ It appears that the answer is: "yes, sometimes it's possible". One way to do so 
 <center>
 Figure 2: Weakly supervised classification
 </center>
+<br></br>
 
-The validation of weakly supervised classification can be done in a similar manner to a regular classification -- just split the labeled part into training and validation set and use the latter one to estimate the performance, but not in training. Sometimes the labeled part is so small, that  it makes no sense to split it. In this case one  train the model only on the unlabeled part (recall, that clustering model require no labels for training), than use labeled part both for class assignment and for performance estimation. 
+The validation of weakly supervised classification can be done in a similar manner to a regular classification -- just split the labeled part into training and validation set and use the latter one to estimate the performance, but not in training. Sometimes the labeled part is so small, that  it makes no sense to split it. In this case one  train the model only on the unlabeled part (recall, that clustering model require no labels for training), than use labeled part both for class assignment and for performance estimation.
 
 
 
@@ -40,7 +42,7 @@ The class assignment step the latter approach is a data leak -- the final models
 
 ## Model structure
 
-Ok, we understand, that for both tasks we need to cluster a bunch of unstructured data, say images. 
+Ok, we understand, that for both tasks we need to cluster a bunch of unstructured data, say images.
 
 How can we do it? First we need to set up or model.  In our image setting its structure  is a really basic one.  It consists of four consequential parts:
 
@@ -71,16 +73,15 @@ A training procedure in DL is usually refers to optimization of some loss functi
 </center>
 <center>
     Figure 3: IIC forward run. x denotes original image,  gx -- a transformed image, dash line indicates, that the transformed and original images a processed with the sames CNN and and fully-connected layer.
-    
-    Based on Figure 2 from <a href="https://arxiv.org/abs/1807.06653">original paper</a> 
-    
+    Based on Figure 2 from <a href="https://arxiv.org/abs/1807.06653">original paper</a>.
 </center>
+<br></br>
 
 The intuition behind IIC is pretty simple -- the transforms should not change the meaning of the images, and thus the __encoder__ should  give roughly the same output on initial and transformed image. To enforce the __encoder__ to do so, we compute the mutual information between the outputs from initial and transformed images and optimize the __encoder__ to make it as big as possible.
 
 ## Training and validation
 
-At this point you can see, that IIC is based on a very simple intuition and perfectly fits in  a general deep learning framework. Two key componets of it are well-chosen augmentations and the __mutual information__ loss (which is explained in the second part of this tutorial). 
+At this point you can see, that IIC is based on a very simple intuition and perfectly fits in  a general deep learning framework. Two key componets of it are well-chosen augmentations and the __mutual information__ loss (which is explained in the second part of this tutorial).
 
 Treating the __mutual information__ as a loss function we can apply a backpropagation algorithm to obtain the gradients  and perform an optimization step, like its done in simple classification setting. As it's differentiable with respect to model weights, you can utilise any gradient method you like to fit the model.
 
@@ -114,13 +115,9 @@ In IIC this fact can be utilized with the help of an additional fully-connected 
 </center>
 <center>
     Figure 4: IIC forward run with uxiliary overclustering .
-    Taken from Figure 2 from <a href="https://arxiv.org/abs/1807.06653">original paper</a> 
-    
+    Taken from Figure 2 from <a href="https://arxiv.org/abs/1807.06653">original paper</a>
+
 </center>
 
-The <a href="https://arxiv.org/abs/1807.06653">original paper</a> (see table 2 there) states, that in some problems can greatly improve the performance of IIC>
-
-
-```python
-
-```
+<br></br>
+The <a href="https://arxiv.org/abs/1807.06653">original paper</a> (see table 2 there) states, that in some problems can greatly improve the performance of IIC.
