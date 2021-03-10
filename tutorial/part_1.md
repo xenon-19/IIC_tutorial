@@ -70,7 +70,7 @@ A training procedure in DL is usually refers to optimization of some loss functi
 <img src="https://github.com/vandedok/IIC_tutorial/releases/download/v0.1/IIC_forward.png" width=600px />
 </center>
 <center>
-    Figure 3: IIC forward run. $x$ denotes original image,  $gx$ -- a transformed image, dash line indicates, that the transformed and original images a processed with the sames CNN and and fully-connected layer.
+    Figure 3: IIC forward run. x denotes original image,  gx -- a transformed image, dash line indicates, that the transformed and original images a processed with the sames CNN and and fully-connected layer.
     
     Based on Figure 2 from <a href="https://arxiv.org/abs/1807.06653">original paper</a> 
     
