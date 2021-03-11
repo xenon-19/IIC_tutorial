@@ -137,7 +137,7 @@ def visualise_clusetering_results(original_labels, cluster_labels, figwidth=20):
         
         
 class startifiedAgentDataset(Dataset):
-    '''
+    """
     The dataset produced by stratified_split function. 
     This datset takes the data directly from the initial dataset instance.
     It can acces only a certain part of original dataset data 
@@ -148,7 +148,7 @@ class startifiedAgentDataset(Dataset):
         the original dataset ttake the data from
     indices_list : list
         list of indices wich the can be acessed from the orgignal dataset
-    '''
+    """
     
     def __init__(self, original_dataset, indices_list):
         super().__init__()
@@ -193,8 +193,8 @@ def stratified_split(original_dataset, train_size, label_key="label"):
     indices = np.arange(len(labels))
     indices_and_labels = np.vstack([indices, labels]).transpose()
     train_indices_and_labels, test_indices_and_labels = train_test_split(indices_and_labels, train_size=train_size, stratify=labels)
-    train_indices = train_indices_and_labels[:,0]
-    test_indices = test_indices_and_labels[:,0]
+    train_indices = train_indices_and_labels[:,0].astype(np.int)
+    test_indices = test_indices_and_labels[:,0].astype(np.int)
     train_dataset = startifiedAgentDataset(original_dataset, train_indices)
     test_dataset = startifiedAgentDataset(original_dataset, test_indices)
     
@@ -222,8 +222,8 @@ def create_mapping(original_labels, cluster_labels):
     This function should be used only if the clusters are well-defined    
     """
     
-    original_labels = np.array(original_labels)
-    cluster_labels - np.array(cluster_labels)
+    original_labels = np.array(original_labels, dtype=np.int)
+    cluster_labels - np.array(cluster_labels, dtype=np.int)
     class_ids = np.unique(original_labels)
     cluster_ids = np.unique(cluster_labels)
     mapping = {}
