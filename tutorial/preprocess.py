@@ -1,5 +1,8 @@
 import os
 import shutil as sh
+import subprocess
+import zipfile
+
 from tqdm.notebook import tqdm
 import numpy as np
 from torchvision.datasets import MNIST
@@ -212,3 +215,15 @@ def create_MNIST_arrays(alb_transforms=None, aug_number=1, target_dir=".",  batc
 
 
     return originals_array, labels_array, aug_arrays
+
+
+def download_MNIST_from_googledrive(DATASET_DIR, id_token = "1bkyL3qtvEfSdq-7mBq61Vq-B1Tll9GcN"):
+
+    if not os.path.exists(DATASET_DIR):
+        os.mkdir(DATASET_DIR)
+
+    output_path = os.path.join(DATASET_DIR, "MNIST.zip")
+    subprocess.run(["gdown", "--id", id_token])
+    os.rename("MNIST.zip", output_path)
+    with zipfile.ZipFile(output_path, 'r') as zip_ref:
+        zip_ref.extractall(DATASET_DIR)
