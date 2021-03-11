@@ -217,7 +217,17 @@ def create_MNIST_arrays(alb_transforms=None, aug_number=1, target_dir=".",  batc
     return originals_array, labels_array, aug_arrays
 
 
-def download_MNIST_from_googledrive(DATASET_DIR, id_token = "1bkyL3qtvEfSdq-7mBq61Vq-B1Tll9GcN"):
+def download_MNIST_from_google_drive(DATASET_DIR, id_token = "1bkyL3qtvEfSdq-7mBq61Vq-B1Tll9GcN"):
+    """Downloads MNIST from my public google link
+    
+    This solution is made for the situations when the MNIST from the official cite is unavailiable
+    
+    Paramters
+    ---------
+    DATASET_DIR : str
+        path to dir where MNIST is going to be sotred.
+        The same path shoul be in DATASET_DIR initialization
+    """
 
     if not os.path.exists(DATASET_DIR):
         os.mkdir(DATASET_DIR)
@@ -226,4 +236,4 @@ def download_MNIST_from_googledrive(DATASET_DIR, id_token = "1bkyL3qtvEfSdq-7mBq
     subprocess.run(["gdown", "--id", id_token])
     os.rename("MNIST.zip", output_path)
     with zipfile.ZipFile(output_path, 'r') as zip_ref:
-        zip_ref.extractall(DATASET_DIR)
+        zip_ref.extractall(DATASET_DIR)this
