@@ -236,4 +236,4 @@ def download_MNIST_from_google_drive(DATASET_DIR, id_token = "1bkyL3qtvEfSdq-7mB
     subprocess.run(["gdown", "--id", id_token])
     os.rename("MNIST.zip", output_path)
     with zipfile.ZipFile(output_path, 'r') as zip_ref:
-        zip_ref.extractall(DATASET_DIR)this
+        zip_ref.extractall(DATASET_DIR)
