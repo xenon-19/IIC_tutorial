@@ -48,7 +48,7 @@ def compose_array_from_dataloader(dataloader, key="original"):
         "label" stands for annotations
         
     Returns
-    -------txt
+    -------
     output_array: numpy.array
         The output array
         If "key" param is "original" or "augmented" the array's shape is (N, H, W) where N = len(dataloader), H, W are images width and height
@@ -105,7 +105,7 @@ def save_dataset_as_numpy(dataloader, file_path, key="original", message=""):
         np.save(file, array_to_save) 
         
         
-def create_MNIST_dataset_with_preprocessed_augs(alb_transforms, target_dir = ".", aug_number=10, fraction_to_take = 1., batch_size=4, num_workers=1):
+def create_MNIST_np_files_with_preprocessed_augs(alb_transforms, target_dir = ".", aug_number=10, fraction_to_take = 1., batch_size=4, num_workers=1):
     """creates several np files with original MNIST dataset and its augmented versions
     
     Parameters
@@ -159,3 +159,56 @@ def create_MNIST_dataset_with_preprocessed_augs(alb_transforms, target_dir = "."
     for i in range(aug_number):
         aug_mnist_path = os.path.join(target_dir, "mnist_aug_" + str(i) +".np")
         save_dataset_as_numpy(dataloader, aug_mnist_path, key="augmented", message="Creating augmented dataset #%i"%i)
+
+    
+    
+def create_MNIST_arrays(alb_transforms=None, aug_number=1, target_dir=".",  batch_size=256, num_workers=1):
+    """ Create numpy arrays containing the MNIST dataset, the labels and the augmented images 
+            
+        Parameters
+        ----------
+        alb_transforms : albumentations.core.composition.Compose
+            a composition of Albumentations transforms
+        aug_number : int
+            number of augmentations to make
+        target_dir : str
+            dir to store the dataset
+        batch_size : int
+            size of batch used in augmentation
+        num_workers : int
+            number of CPU threads to use in augmentations
+            
+        Returns
+        -------
+        originals_array : numpy.ndarray
+            array with original MNIST images
+        labels_array : numpy.ndarray
+            array with MNIST labels
+        aug_arrays : list of numpy.ndarrays
+            list wih augmented versions of MNIST images
+        
+        """
+
+    dataset_alb = AlbMNIST(os.path.join(target_dir, "MNIST"), download=True)
+    dataloader = DataLoader(dataset_alb, batch_size=len(dataset_alb), shuffle=False, num_workers=num_workers)
+
+    print("Fetching original dataset...", end =" ")
+    originals_array = next(iter(dataloader))['original'].numpy()
+    labels_array = next(iter(dataloader))['label'].numpy()
+    print("Done!")
+
+    dataset_alb.set_transofrms(alb_transforms)
+    aug_arrays = []
+    dataloader = DataLoader(
+        dataset_alb, 
+        batch_size=batch_size, 
+        shuffle=False, 
+        num_workers=num_workers
+    )
+
+    for aug_idx in range(aug_number):
+        print("Making aug #%i"%aug_idx)
+        aug_arrays.append(compose_array_from_dataloader(dataloader, key = "augmented"))
+
+
+    return originals_array, labels_array, aug_arrays
