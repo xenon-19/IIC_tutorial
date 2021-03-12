@@ -1,3 +1,7 @@
+
+<center><img src="https://github.com/vandedok/IIC_tutorial/releases/download/v0.3/cover.png" width=800px /></center>
+
+
 ## Introduction
 
 Hello everyone!
