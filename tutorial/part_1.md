@@ -12,10 +12,10 @@ The clustering problem suggests that the initial data have no labels. A clusteri
  <center>Figure 1: Image clustering </center>
  <br></br>
 
-There are many clustering algorithms like K-means or DBSCAN, which are great for structured data -- tables.  However they are not really useful for unstructured data, like images or time series. To perform clustering on such kind of data more advanced methods are required.
+There are many clustering algorithms like K-means or DBSCAN, which are great for structured data -- tables.  However they are not really useful for unstructured data, like images or time series. To perform clustering on such kind of data, more advanced methods are required.
 
 
-In real life clustering algorithms are hard to validate, as there are no true labels available. However it's possible to benchmark a clustering method using labeled dataset. One can take something like MNIST, feed the images without labels, make the clustering algorithm to produce clustering labels and than compare the clustering labeling with a true one. If these two labelings are close to each other up to some permutation, than the clustering algorithm done a great job.  
+In real life clustering algorithms are hard to validate, as there are no true labels available. However it's possible to benchmark a clustering method using labeled dataset. One can take something like MNIST, feed the images without labels, make the clustering algorithm to produce clustering labels and than compare the clustering labeling with a true ones. If these two labelings are close to each other up to some permutation, than the clustering algorithm have done a great job.  
 
 Some clustering algorithms require the knowledge of a number of final cluster, while others manage to figure it out themselves. IIC in its basic setting belongs to a former group.
 
@@ -29,7 +29,7 @@ It appears that the answer is: "yes, sometimes it's possible". One way to do so 
 <img src="https://github.com/vandedok/IIC_tutorial/releases/download/v0.1/weakly_class.png" width=600px />
 </center>
 <center>
-Figure 2: Weakly supervised classification
+Figure 2: Semi-supervised classification
 </center>
 <br></br>
 
@@ -44,7 +44,7 @@ The class assignment step the latter approach is a data leak -- the final models
 
 Ok, we understand, that for both tasks we need to cluster a bunch of unstructured data, say images.
 
-How can we do it? First we need to set up or model.  In our image setting its structure  is a really basic one.  It consists of four consequential parts:
+How can we do it? First we need to set up or model.  In our image setting its structure  is a really basic one.  It consists of three consequential parts:
 
 1) A fully-convolution __backbone__ (say a ResNet model without last fully-connected layer),
 
@@ -52,20 +52,21 @@ How can we do it? First we need to set up or model.  In our image setting its st
 
 3) A fully-connected layer, which we will aslo call a __clustering head__.
 
-The latter one has a number of output features equal to a number of classes/clusters. Each output feature, or __logit__, represents the output cluster/class  The bigger is the __logit__  value, the more is tendency of the model to assign the sample to a given class.
+The latter one has a number of output features equal to a number of classes/clusters. Each output feature, or __logit__, represents the output cluster/class  The higher  the  value of the __logit__, the more the model has a tendency to assign the sample to a given class.
 
- If you've ever encountered a modern classification task on images, you've probably seen this structure. In different contexts it can be called as __encoder__ or __feature extractor__. To train such a model without external labels is not a straightforward task. To see, how IIC encounters it, proceed to next section.
+ If you've ever encountered any modern classification task on images, you've probably seen this structure. In different contexts it can be called as __encoder__ or __feature extractor__. To train such a model without external labels is not a straightforward task. To see, how IIC encounters it, proceed to next section.
 
  ## IIC forward run
 
 A training procedure in DL is usually refers to optimization of some loss function by adjusting the model's weights. I think it's really instructive to look at IIC forward run step by step:
 
 
-1) Take your dataset (or, more practically, a batch of images) and __augment__ it: perform a random transformations such as rotations, flipping, scaling and so on. The more diverse the transformations the better. The only constraint is that after the transformation the object on the augmented image should still be recognizable . After this step you will have the initial images batch and a transformed images batch.
+1) Take your dataset (or, more practically, a batch of images) and __augment__ it: perform a random transformations such as rotations, flipping, scaling and so on. The more varied the transformations the better. The only constraint is that after the transformation the object on the augmented image should still be recognizable . After this step you will have the initial images batch and a transformed images batch.
 
-2) Apply a __encoder__  to both batches, than use  a __softmax__ function to convert __logits__ into probabilities. At first the these probabilities for initial and transformed  batches should differ a lot, as the  __encoder__ is not trained. However we understand, that the transformations should not affect the probabilities, as they do not change semantic meaning. If we find a way to make this distributions as similar as possible, we win.
+2) Apply the encoder to both batches, than use  a softmax function to convert the logits into probabilities. At the beginning of the training these probabilities s should differ a lot for initial and transformed  batches. However we understand, that the transformations should not affect the probabilities, as they do not change semantic meaning. If we find a way to make this distributions as similar as possible, we win.
 
-3) Lucky to us, we do have a function which measures this difference -- it is called __mutual information__. Quoting the [wikipedia](https://en.wikipedia.org/wiki/Mutual_information), it "quantifies the 'amount of information', obtained about one random variable through observing the other random variable". I dedicated to a __mutual information__ the second part of this tutorial. For now it's sufficient to know, that __mutual information__ is a differentiable function, which takes as input the cluster probabilities for all images in original and transformed batches.  
+3) Lucky to us, we do have a function which measures this difference -- it is called __mutual information__. Quoting the [wikipedia](https://en.wikipedia.org/wiki/Mutual_information), it "quantifies the 'amount of information', obtained about one random variable through observing the other random variable". I dedicated to the mutual information the  of this tutorial [second part](behttps://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)
+ (better [![ Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)). For now it's sufficient to know, that the mutual information is a differentiable function, which takes as input the cluster probabilities for all images in original and transformed batches.  
 
 
 <center>
@@ -77,36 +78,35 @@ A training procedure in DL is usually refers to optimization of some loss functi
 </center>
 <br></br>
 
-The intuition behind IIC is pretty simple -- the transforms should not change the meaning of the images, and thus the __encoder__ should  give roughly the same output on initial and transformed image. To enforce the __encoder__ to do so, we compute the mutual information between the outputs from initial and transformed images and optimize the __encoder__ to make it as big as possible.
+The intuition behind IIC is pretty simple -- the transforms should not change the meaning of the images, and thus the encoder should  give roughly the same output on initial and transformed image. To enforce the encoder to do so, we compute the mutual information between the outputs from initial and transformed images and optimize the encoder to make it as big as possible.
 
 ## Training and validation
 
-At this point you can see, that IIC is based on a very simple intuition and perfectly fits in  a general deep learning framework. Two key componets of it are well-chosen augmentations and the __mutual information__ loss (which is explained in the second part of this tutorial).
+At this point you can see, that IIC is based on a very simple intuition and perfectly fits in  a general deep learning framework. Two key components of it are well-chosen augmentations and the mutual information. Treating the mutual information as a loss function we can apply a backpropagation algorithm to obtain the gradients  and perform an optimization step, like in a simple classification setting. As this loss is differentiable with respect to model weights, you can utilize any gradient method you like to fit the model.
 
-Treating the __mutual information__ as a loss function we can apply a backpropagation algorithm to obtain the gradients  and perform an optimization step, like its done in simple classification setting. As it's differentiable with respect to model weights, you can utilise any gradient method you like to fit the model.
+A good question is how to make a decision, where to stop the training and assume that the encoder is ready to produce the results. I don't have a general answer for that, however it's clear what's the simplest way to answer it: just wait when the loss function reaches plateau and state that there is the point you wanted to reach.
 
-A good question is how to make a decision, where to stop the training and assume that the encoder is ready to produce the results. I don't have a general answer for that, however it's clear what's the simpliest way to answer it: just wait when the loss function reaches plateau and state that there is the point you wanted to reach.
-
-This methodology has an obvious drawback. Doing so you may find the local minima of the loss where the model behaves itself poorly. This is also affected by the fact that the performance of a Dl model in general case is dependent on an initialization -- just the different runs made show you a noticable divergence in the resulting performance.
+This methodology has an obvious drawback. Doing so you may find the local minima of the loss where the model behaves itself poorly. This is also affected by the fact that the performance of a DL model in general case is dependent on an initialization --  different runs made show you a noticeable divergence in the resulting performance.
 
 
-For clustering problem this problem can hardly be avoided and that's not the fault of IIC method but of the clustering setting itself. With the absence of true labels it's hard to say, weather the algorithm demonstrated a great performance. A possible workaround is to benchmark the algorithm on a labeled data and than use it on the unlabelled data of the similar structure.
+For a clustering problem this problem can hardly be avoided and that's not the fault of IIC method but of the clustering setting itself. With the absence of true labels it's hard to say, weather the algorithm demonstrated a great performance. A possible workaround is to benchmark the algorithm on a labeled data and than use it on the unlabelled data of the similar structure.
 
 For semi-supervised classification he validation procedure can be inherited from the classic classification setting: split the labeled set into validation and test subsets, use the validation one for label assignment and model selection and the test part for obtaining the final score.
 
 ## Conclusion
 
-Now we had a look on the IIC approach and got an intuition how it works. The second part of the tutorial show in more detail what is mutual information and how can it be estimated. It contains a number of forumals -- if you don't like them, you may want to jump directly to the third part with the Pytorch implementation.
+Now we had a look at the IIC approach and got an intuition how it works. The [second part](behttps://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)
+ (better [![ Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)) of the tutorial shows  what is mutual information in more detail and how can it be estimated. It contains a number of formulas -- if you don't like them, you may want to jump directly to the [third part](behttps://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb) [![ Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb) with the Pytorch implementation.
 
 ## Appendix: auxiliary overclustering
 
 
 
-There are several tricks that can improve the performance of the IIC method. One of them is called __auxiliary overclustering__. The intuition about that is the following.
+There are several tricks that can improve the performance of the IIC method. One of them is called __auxiliary overclustering__. The intuition is the following.
 
 Imagine, that we want our data to produce a limited number of clusters, say N. In fact the data may have much more well-defined clusters which the model can actually recognize. Morover, sometimes it's easier for the model to train having in mind that abundance.
 
-In IIC this fact can be utilized with the help of an additional fully-connected layer called __overcluster head__. This layer has the same number of input features as the last layer from initial IIC model and a number of output features several time larger. We replace original fully-connected layer with  __overcluster head__ and train the model using __mutual information__ as loss function (see Figure 4). This is done during several epochs, than   __overcluster head__ is replaced  by original layer an so on.
+In IIC this fact can be utilized with the help of an additional fully-connected layer called __overcluster head__. This layer has the same number of input features as the last layer from initial IIC model and a number of output features several time larger. We replace original fully-connected layer with  overcluster head and train the model using mutual information as loss function (see Figure 4). This is done during several epochs, than  overcluster head is replaced  by original layer an so on.
 
 
 
