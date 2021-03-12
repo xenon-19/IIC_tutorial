@@ -118,6 +118,17 @@ In IIC this fact can be utilized with the help of an additional fully-connected 
     Taken from Figure 2 from <a href="https://arxiv.org/abs/1807.06653">original paper</a>
 
 </center>
-
 <br></br>
+
+When the model is trained in with both clustering and overclustering heads, one can track down losses coming from both of them. When the overclustering head is training, clustering mutual information may not grow (or even decrease). The opposite is also true: during the clustering training overclustering mutual information may decrease. This training is illustrated on image 5.
+
+<center>
+<img src="https://github.com/vandedok/IIC_tutorial/releases/download/v0.2/IIC_overcluster_training.png" width=600px />
+</center>
+<center>
+    Figure 5: IIC clustering and overclustering training</a>
+</center>
+<br></br>  
+
+
 The <a href="https://arxiv.org/abs/1807.06653">original paper</a> (see table 2 there) states, that in some problems can greatly improve the performance of IIC.
