@@ -1,7 +1,7 @@
 import os
 import shutil as sh
-import subprocess
 import zipfile
+import urllib.request
 
 from tqdm.notebook import tqdm
 import numpy as np
@@ -217,8 +217,8 @@ def create_MNIST_arrays(alb_transforms=None, aug_number=1, target_dir=".",  batc
     return originals_array, labels_array, aug_arrays
 
 
-def download_MNIST_from_google_drive(DATASET_DIR, id_token = "1bkyL3qtvEfSdq-7mBq61Vq-B1Tll9GcN"):
-    """Downloads MNIST from my public google link
+def manually_download_MNIST(DATASET_DIR):
+    """Downloads MNIST from github attachments
     
     This solution is made for the situations when the MNIST from the official cite is unavailiable
     
@@ -228,12 +228,15 @@ def download_MNIST_from_google_drive(DATASET_DIR, id_token = "1bkyL3qtvEfSdq-7mB
         path to dir where MNIST is going to be sotred.
         The same path shoul be in DATASET_DIR initialization
     """
-
+    
+    
+    output_path = os.path.join(DATASET_DIR, "MNIST.zip")
     if not os.path.exists(DATASET_DIR):
         os.mkdir(DATASET_DIR)
-
-    output_path = os.path.join(DATASET_DIR, "MNIST.zip")
-    subprocess.run(["gdown", "--id", id_token])
-    os.rename("MNIST.zip", output_path)
+    url = "https://github.com/vandedok/IIC_tutorial/releases/download/v0.2/MNIST.zip"
+    print("Downloading MNIST...", end=" ")
+    urllib.request.urlretrieve(url, output_path)
+    print("Done!")
+    
     with zipfile.ZipFile(output_path, 'r') as zip_ref:
         zip_ref.extractall(DATASET_DIR)

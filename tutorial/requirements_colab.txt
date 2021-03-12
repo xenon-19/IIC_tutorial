@@ -3,4 +3,3 @@ torch==1.7.1
 torchvision==0.8.2
 scikit-learn==0.23.2
 matplotlib==3.3.3
-gdown==3.12.2
