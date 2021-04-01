@@ -63,7 +63,7 @@ Now it's clear why mutual information is a good measure of dependence of two ran
 
 As you can see from above, to calculate mutual information it's sufficient to estimate a joint probability function p<sub>AB</sub> (_a_,_b_). After this it's straightforward to calculate the marginal distributions and the mutual information itself. Before showing you how joint probabilities are estimated in IIC, I want to make a disclaimer: the formulae below should  be taken not as an absolute truth, but rather a model assumption.  
 
-Let's denote _i_-th data sample as _x_<sub>_i_</sub>, the corresponding transformed data sample as _ _gx_<sub>_i_</sub> and the encoder function as _\Phi(\cdot)_. After the encoder processes the sample it gives a set of _N_<sub>C</sub> numbers (_N_<sub>C</sub> is equal to 10 for MNIST). We denote the entire set as _&Phi;_(_x_<sub>_i_</sub>)  for original data and  _&Phi;_(_gx_<sub>_i_</sub>) for  transformed data :
+Let's denote _i_-th data sample as _x_<sub>_i_</sub>, the corresponding transformed data sample as _ gx_<sub>_i_</sub> and the encoder function as _&Phi;_( . ). After the encoder processes the sample it gives a set of _N_<sub>C</sub> numbers (_N_<sub>C</sub> is equal to 10 for MNIST). We denote the entire set as _&Phi;_(_x_<sub>_i_</sub>)  for original data and  _&Phi;_(_gx_<sub>_i_</sub>) for  transformed data :
 
 <center>
 <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \Phi(x_i) = \begin{pmatrix} \Phi_0(x_i) \\ \Phi_1(x_i) \\ \vdots \\ \Phi_{N_C}(x_i) \end{pmatrix} \qquad ">
@@ -100,7 +100,7 @@ where _N_<sub>B</sub> is a batch size.
 In IIC setting we expect the joint probability to be a symmetric function: the probability to observe the pair of classes _(a,b)_ should be the same as the probability to observe the pair _(b,a)_. However in general case the above formula for the joint probabilities doesn't have this symmetry.  To fix the situation we perform a symmetrization:
 
 <center>
-<img src="https://render.githubusercontent.com/render/math?math=\displaystyle P^{sym}_{orig, trans}(a,b) = \frac{1}{2}\left(P_{orig, trans}(a,b) + P_{orig, trans}(b,a) \right)">
+<img src="https://render.githubusercontent.com/render/math?math=\displaystyle P^{sym}_{orig, trans}(a,b) = \frac{1}{2}\left(P_{orig, trans}(a,b) %2B P_{orig, trans}(b,a) \right)">
 </center>
 <b style="word-space:2em">&nbsp;&nbsp;</b>  
 
@@ -150,19 +150,19 @@ It is minimized when the measurement of _B_ completely predicts the measurement 
 
 Using the entropies the mutual information can be expressed as:
 <center>
-<img src="https://render.githubusercontent.com/render/math?math=\displaystyle I(A,B) = \frac{1}{2}\big( H(A)  H(B) \big) - \frac{1}{2}\big(H(A|B) + H(B|A)\big)">
+<img src="https://render.githubusercontent.com/render/math?math=\displaystyle I(A,B) = \frac{1}{2}\big( H(A) %2B H(B) \big) - \frac{1}{2}\big(H(A|B) %2B H(B|A)\big)">
 </center>
 <b style="word-space:2em">&nbsp;&nbsp;</b>  
 
 The optimization of mutual information can be seen as a fight between marginal entropies with conditional entropies. If all samples tend to group more intensely than required, we may want to  help the first term by adding the additional weight to it. So the modification of the mutual information should be:
 
 <center>
-<img src="https://render.githubusercontent.com/render/math?math=\displaystyle I_\lambda(A,B) = I(A,B) +(\lambda - 1 )\big(H(A) + H(B)\big)">
+<img src="https://render.githubusercontent.com/render/math?math=\displaystyle I_\lambda(A,B) = I(A,B) %2B(\lambda - 1 )\big(H(A) %2B H(B)\big)">
 </center>
 <b style="word-space:2em">&nbsp;&nbsp;</b>  
 
 
-When the _&lambda;_ is equal to 1, the modified mutual information is equal to the original mutual information. Making _&lambda;_ greater than one pushes the model towards spreading the labels to different clusters. 
+When the _&lambda;_ is equal to 1, the modified mutual information is equal to the original mutual information. Making _&lambda;_ greater than one pushes the model towards spreading the labels to different clusters.
 
 ## Conclusion
 
