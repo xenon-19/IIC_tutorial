@@ -63,7 +63,7 @@ Now it's clear why mutual information is a good measure of dependence of two ran
 
 As you can see from above, to calculate mutual information it's sufficient to estimate a joint probability function p<sub>AB</sub> (_a_,_b_). After this it's straightforward to calculate the marginal distributions and the mutual information itself. Before showing you how joint probabilities are estimated in IIC, I want to make a disclaimer: the formulae below should  be taken not as an absolute truth, but rather a model assumption.  
 
-Let's denote _i_-th data sample as _x_<sub>_i_</sub>, the corresponding transformed data sample as _ gx_<sub>_i_</sub> and the encoder function as _&Phi;_( . ). After the encoder processes the sample it gives a set of _N_<sub>C</sub> numbers (_N_<sub>C</sub> is equal to 10 for MNIST). We denote the entire set as _&Phi;_(_x_<sub>_i_</sub>)  for original data and  _&Phi;_(_gx_<sub>_i_</sub>) for  transformed data :
+Let's denote _i_-th data sample as _x_<sub>_i_</sub>, the corresponding transformed data sample as _gx_<sub>_i_</sub> and the encoder function as _&Phi;_( . ). After the encoder processes the sample it gives a set of _N_<sub>C</sub> numbers (_N_<sub>C</sub> is equal to 10 for MNIST). We denote the entire set as _&Phi;_(_x_<sub>_i_</sub>)  for original data and  _&Phi;_(_gx_<sub>_i_</sub>) for  transformed data :
 
 <center>
 <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \Phi(x_i) = \begin{pmatrix} \Phi_0(x_i) \\ \Phi_1(x_i) \\ \vdots \\ \Phi_{N_C}(x_i) \end{pmatrix} \qquad ">
