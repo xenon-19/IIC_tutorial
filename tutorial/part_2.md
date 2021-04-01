@@ -119,7 +119,7 @@ Now the "vague model assumptions" part is over. After obtaining joint probabilit
 And the mutual information:
 
 <center>
-<img src="https://render.githubusercontent.com/render/math?math=\displaystyle I (orig, trans) = \sum_{a=0}^{N_C} \sum_{b = 0}^{N_C} P_{orig, trans}(a,b) \log \frac{P_{orig, trans}(a,b)} {P_{orig} (a) P_{trans} (b)})">
+<img src="https://render.githubusercontent.com/render/math?math=\displaystyle I (orig, trans) = \sum_{a=0}^{N_C} \sum_{b = 0}^{N_C} P_{orig, trans}(a,b) \log \frac{P_{orig, trans}(a,b)} {P_{orig} (a) P_{trans} (b)}">
 </center>
 <b style="word-space:2em">&nbsp;&nbsp;</b>  
 
