@@ -6,7 +6,7 @@ Now let's discuss what is __mutual information__ and how can it be estimated.
 
 Mutual information is a functional which takes as input a joint probability distribution of two random variables. That means, the for a pair of random variables it takes as input the probabilities for all pairs of values and outputs a number.
 
-Before we start digging further let's recall the notion of __joint probabilities__. Denote the probability of random variables _A_ and _B_  to take values _a_ and _b_ simultaneously as _p<sub>AB</sub> (_a_,_b_). Than the set of values p<sub>AB</sub>_ (_a_,_b_) for all possible _a_ and _b_  is called a __joint probability  distribution__.
+Before we start digging further let's recall the notion of __joint probabilities__. Denote the probability of random variables _A_ and _B_  to take values _a_ and _b_ simultaneously as _p_<sub>AB</sub> (_a_,_b_). Than the set of values _p<sub>AB</sub>_ (_a_,_b_) for all possible _a_ and _b_  is called a __joint probability  distribution__.
 
 For our case it's sufficient to assume, that the random variables are discrete. Let's also assume, that the variables _A_ and _B_ can take the values 0, 1 .. _N_<sub>C</sub>.
 
