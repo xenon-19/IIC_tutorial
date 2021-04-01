@@ -94,7 +94,7 @@ For semi-supervised classification he validation procedure can be inherited from
 
 ## Conclusion
 
-Now we had a look at the IIC approach and got an intuition how it works. The [second part](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.md) of the tutorial shows  what is mutual information in more detail and how can it be estimated. It contains a number of formulas -- if you don't like them, you may want to jump directly to the [third part](behttps://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb) [![ Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb) with the Pytorch implementation.
+Now we had a look at the IIC approach and got an intuition how it works. The [second part](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.md) of the tutorial shows  what is mutual information in more detail and how can it be estimated. It contains a number of formulas -- if you don't like them, you may want to jump directly to the [third part](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb)  [![ Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb) with the Pytorch implementation.
 
 ## Appendix: auxiliary overclustering
 
