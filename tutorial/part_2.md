@@ -84,7 +84,7 @@ We treat these vectors as probability distributions, conditioned on the _i_-th s
 To get the unconditional joint probabilities, we need to multiply the probabilities and to average over the data:
 
 <center>
-<img src="https://render.githubusercontent.com/render/math?math=\displaystyle P_{orig, trans}(a,b) = \frac{ \sum_{i \in batch}  \Phi_a(x_i) \Phi_b(gx_i))}{N_B}">
+<img src="https://render.githubusercontent.com/render/math?math=\displaystyle P_{orig, trans}(a,b) = \frac{ \sum_{i \in batch}  \Phi_a(x_i) \Phi_b(gx_i)}{N_B}">
 </center>
 <b style="word-space:2em">&nbsp;&nbsp;</b>  
 
