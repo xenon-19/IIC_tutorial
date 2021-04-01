@@ -65,8 +65,7 @@ A training procedure in DL is usually refers to optimization of some loss functi
 
 2) Apply the encoder to both batches, than use  a softmax function to convert the logits into probabilities. At the beginning of the training these probabilities s should differ a lot for initial and transformed  batches. However we understand, that the transformations should not affect the probabilities, as they do not change semantic meaning. If we find a way to make this distributions as similar as possible, we win.
 
-3) Lucky to us, we do have a function which measures this difference -- it is called __mutual information__. Quoting the [wikipedia](https://en.wikipedia.org/wiki/Mutual_information), it "quantifies the 'amount of information', obtained about one random variable through observing the other random variable". I dedicated to the mutual information the  of this tutorial [second part](behttps://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)
- (better [![ Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)). For now it's sufficient to know, that the mutual information is a differentiable function, which takes as input the cluster probabilities for all images in original and transformed batches.  
+3) Lucky to us, we do have a function which measures this difference -- it is called __mutual information__. Quoting the [wikipedia](https://en.wikipedia.org/wiki/Mutual_information), it "quantifies the 'amount of information', obtained about one random variable through observing the other random variable". I dedicated to the mutual information the  of this tutorial [second part](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.md). For now it's sufficient to know, that the mutual information is a differentiable function, which takes as input the cluster probabilities for all images in original and transformed batches.  
 
 
 <center>
@@ -95,8 +94,7 @@ For semi-supervised classification he validation procedure can be inherited from
 
 ## Conclusion
 
-Now we had a look at the IIC approach and got an intuition how it works. The [second part](behttps://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)
- (better [![ Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_2.ipynb)) of the tutorial shows  what is mutual information in more detail and how can it be estimated. It contains a number of formulas -- if you don't like them, you may want to jump directly to the [third part](behttps://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb) [![ Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb) with the Pytorch implementation.
+Now we had a look at the IIC approach and got an intuition how it works. The [second part](https://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_2.md) of the tutorial shows  what is mutual information in more detail and how can it be estimated. It contains a number of formulas -- if you don't like them, you may want to jump directly to the [third part](behttps://github.com/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb) [![ Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vandedok/IIC_tutorial/blob/master/tutorial/part_3.ipynb) with the Pytorch implementation.
 
 ## Appendix: auxiliary overclustering
 
